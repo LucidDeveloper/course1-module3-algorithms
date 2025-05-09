@@ -1,0 +1,19 @@
+Start Node
+
+Decision: "Is user creating a goal?"
+
+Yes → CreateSavingsGoal process
+
+Decision: "Is user updating savings?"
+
+Yes → UpdateSavingsProgress process
+
+Decision: "Check Goal Status?"
+
+Yes → CheckGoalStatus process
+
+Decision: "Is target date within 3 days and goal unmet?"
+
+Yes → NotifyUserIfGoalDateApproaching
+
+End Node

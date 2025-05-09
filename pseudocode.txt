@@ -1,0 +1,37 @@
+START
+
+FUNCTION CreateSavingsGoal(userID, targetAmount, targetDate)
+    CREATE new goal with userID, targetAmount, targetDate
+    SET amountSaved = 0
+    STORE goal in database
+    RETURN "Goal Created Successfully"
+END FUNCTION
+
+FUNCTION UpdateSavingsProgress(userID, newSavedAmount)
+    RETRIEVE goal using userID
+    UPDATE amountSaved = amountSaved + newSavedAmount
+    STORE updated amountSaved
+    RETURN "Progress Updated"
+END FUNCTION
+
+FUNCTION CheckGoalStatus(userID)
+    RETRIEVE goal using userID
+    IF amountSaved >= targetAmount THEN
+        SET goalStatus = "Achieved"
+    ELSE IF currentDate > targetDate THEN
+        SET goalStatus = "Missed"
+    ELSE
+        SET goalStatus = "In Progress"
+    END IF
+    RETURN goalStatus
+END FUNCTION
+
+FUNCTION NotifyUserIfGoalDateApproaching(userID)
+    RETRIEVE goal using userID
+    IF (targetDate - currentDate) <= 3 days AND amountSaved < targetAmount THEN
+        COMPOSE notification: "Your savings goal deadline is approaching!"
+        SEND notification to userID
+    END IF
+END FUNCTION
+
+END
